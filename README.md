@@ -6,10 +6,10 @@
 
 The File Structure separates all concerns like so:
 
-business logic -> ```core``` folder
-UI Pages ->  ```pages``` folder
-utilities (useful methods, styles, common values, constants, extensions ) -> ```util``` folder
-widgets -> ```widgets``` folder
+1. business logic -> ```core``` folder
+2. UI Pages ->  ```pages``` folder
+3. utilities (useful methods, styles, common values, constants, extensions ) -> ```util``` folder
+4. widgets -> ```widgets``` folder
 
 
 ## Get It
