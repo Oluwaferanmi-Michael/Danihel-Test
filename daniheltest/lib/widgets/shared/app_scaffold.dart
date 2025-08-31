@@ -1,3 +1,4 @@
+import 'package:daniheltest/util/styles/colors.dart';
 import 'package:flutter/material.dart';
 
 class AppScaffold extends StatelessWidget {
@@ -22,7 +23,7 @@ class AppScaffold extends StatelessWidget {
           ),
         ),
         Scaffold(
-          backgroundColor: Color.fromRGBO(27, 114, 114, 1),
+          backgroundColor: AppColors.scaffoldBackground,
 
           appBar: appBar,
           body: child,

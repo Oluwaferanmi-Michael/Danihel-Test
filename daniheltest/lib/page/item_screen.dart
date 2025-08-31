@@ -1,6 +1,9 @@
+import 'package:daniheltest/core/domain/enums/enums.dart';
 import 'package:daniheltest/injection_container.dart';
+import 'package:daniheltest/util/styles/colors.dart';
 import 'package:daniheltest/widgets/filter_widget.dart';
 import 'package:daniheltest/widgets/item_description.dart';
+import 'package:daniheltest/widgets/shared/app_chips.dart';
 import 'package:daniheltest/widgets/shared/app_scaffold.dart';
 import 'package:flutter/material.dart';
 
@@ -32,7 +35,7 @@ class _ItemScreenState extends State<ItemScreen> {
           child: Image.asset('assets/images/target_logo_white.png'),
         ),
         leadingWidth: 48,
-        actions: [Icon(Icons.menu, color: Colors.white)],
+        actions: [Icon(Icons.menu, color: AppColors.white)],
       ),
       child: SingleChildScrollView(
         child: Column(
@@ -43,7 +46,7 @@ class _ItemScreenState extends State<ItemScreen> {
               child: Text(
                 'Highly packable, weatherproof outdoor equipment',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColors.white,
                   fontSize: 36,
                   fontWeight: FontWeight.w700,
                   height: 1,
@@ -58,7 +61,7 @@ class _ItemScreenState extends State<ItemScreen> {
                   child: TextField(
                     controller: searchController,
                     keyboardType: TextInputType.text,
-                    cursorColor: Colors.white,
+                    cursorColor: AppColors.white,
                     style: $appTextStyles.paragraph,
                     decoration: InputDecoration(
                       contentPadding: EdgeInsets.symmetric(
@@ -72,7 +75,7 @@ class _ItemScreenState extends State<ItemScreen> {
                       ),
                       filled: true,
                       suffixIcon: Icon(Icons.search),
-                      suffixIconColor: Colors.white,
+                      suffixIconColor: AppColors.white,
                       hintText: 'Search...',
                       hintStyle: $appTextStyles.paragraph,
                       fillColor: Color.fromRGBO(255, 255, 255, 0.4),
@@ -86,28 +89,8 @@ class _ItemScreenState extends State<ItemScreen> {
                     scrollDirection: Axis.horizontal,
                     child: Row(
                       spacing: 10,
-                      children: campingItems
-                          .map(
-                            (e) => ActionChip(
-                              label: Text(e),
-                              color: WidgetStatePropertyAll(
-                                e == 'All Items'
-                                    ? Color.fromRGBO(23, 40, 37, 0.8)
-                                    : Color.from(
-                                        alpha: .4,
-                                        blue: 1,
-                                        green: 1,
-                                        red: 1,
-                                      ),
-                              ),
-
-                              labelStyle: $appTextStyles.mediumTag.copyWith(
-                                color: Colors.white,
-                              ),
-
-                              onPressed: () {},
-                            ),
-                          )
+                      children: ProductCategory.values
+                          .map((e) => AppChips(label: e.name))
                           .toList(),
                     ),
                   ),
@@ -123,11 +106,3 @@ class _ItemScreenState extends State<ItemScreen> {
     );
   }
 }
-
-final campingItems = [
-  'All Items',
-  'Tents',
-  'Sleeping Bags',
-  'Backpacks',
-  'Generators',
-];

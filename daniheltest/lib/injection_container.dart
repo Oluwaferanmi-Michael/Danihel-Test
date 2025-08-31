@@ -1,4 +1,4 @@
-import 'package:daniheltest/styles/app_text.dart';
+import 'package:daniheltest/util/styles/app_text.dart';
 import 'package:get_it/get_it.dart';
 
 final getIt = GetIt.instance;

@@ -1,11 +1,19 @@
+import 'package:daniheltest/core/providers/product_provider.dart';
+import 'package:daniheltest/core/providers/user_provider.dart';
+
 import 'package:daniheltest/injection_container.dart';
+import 'package:daniheltest/util/styles/colors.dart';
+import 'package:daniheltest/widgets/shared/app_chips.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ItemDescription extends StatelessWidget {
   const ItemDescription({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final productDetail = context.watch<ProductProvider>().product;
+    final userFavourites = context.watch<UserProvider>().favourites;
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
@@ -38,18 +46,29 @@ class ItemDescription extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text('Pacer Backpack 20L', style: $appTextStyles.h2),
-                        Text('\$59.99', style: $appTextStyles.h2_2),
+                        Text(productDetail.title, style: $appTextStyles.h2),
+                        Text(
+                          '\$${productDetail.price}',
+                          style: $appTextStyles.h2_2,
+                        ),
                       ],
                     ),
                     IconButton(
-                      onPressed: () {},
-                      icon: Icon(Icons.favorite_border_outlined),
+                      onPressed: () {
+                        context.read<UserProvider>().updateFavourite(
+                          productDetail,
+                        );
+                      },
+                      icon: userFavourites.contains(productDetail)
+                          ? Icon(Icons.favorite)
+                          : Icon(Icons.favorite_border_outlined),
                       style: ButtonStyle(
                         backgroundColor: WidgetStateProperty.all(
                           Color.fromRGBO(255, 255, 255, .4),
                         ),
-                        foregroundColor: WidgetStateProperty.all(Colors.white),
+                        foregroundColor: WidgetStateProperty.all(
+                          AppColors.white,
+                        ),
                         shape: WidgetStateProperty.all(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadiusGeometry.circular(10),
@@ -62,7 +81,7 @@ class ItemDescription extends StatelessWidget {
                 SizedBox(
                   width: MediaQuery.sizeOf(context).width * .6,
                   child: Text(
-                    'Our bag features chest and hip straps, a pack away rain cover and convenient multiple pockets including a bottom compartment with a separate opening.',
+                    productDetail.description,
                     style: $appTextStyles.paragraph,
                   ),
                 ),
@@ -70,10 +89,17 @@ class ItemDescription extends StatelessWidget {
                 //
                 Wrap(
                   spacing: 6,
-                  children: category
+                  children: productDetail.productTags
                       .map(
-                        (e) => Chip(
-                          label: Text(e, style: $appTextStyles.smallTag),
+                        (e) => AppChips(
+                          label: e,
+                          backgroundColor: AppColors.whiteBackground80,
+                          labelColor: AppColors.tagColor,
+                          labelStyle: $appTextStyles.smallTag,
+                          labelPadding: EdgeInsets.symmetric(
+                            horizontal: 10,
+                            vertical: 8,
+                          ),
                         ),
                       )
                       .toList(),
@@ -90,5 +116,3 @@ class ItemDescription extends StatelessWidget {
     );
   }
 }
-
-final category = ['20L Size', 'Solar Orange', '8 Pockets'];

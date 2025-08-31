@@ -1,14 +1,29 @@
+import 'package:daniheltest/core/providers/filter_providers.dart';
+import 'package:daniheltest/core/providers/product_provider.dart';
+import 'package:daniheltest/core/providers/user_provider.dart';
 import 'package:daniheltest/injection_container.dart';
 import 'package:daniheltest/page/item_screen.dart';
-import 'package:daniheltest/styles/theme.dart';
+import 'package:daniheltest/util/styles/theme.dart';
 import 'package:daniheltest/widgets/shared/app_scaffold.dart';
 import 'package:flutter/material.dart';
-import 'package:get_it/get_it.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-
   dependencySetup();
-  runApp(const MainApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => ProductProvider()),
+        ChangeNotifierProvider(create: (context) => SalaryRangeProvider()),
+        ChangeNotifierProvider(create: (context) => LevelProvider()),
+        ChangeNotifierProvider(
+          create: (context) => DeveloperCategoryProvider(),
+        ),
+      ],
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {

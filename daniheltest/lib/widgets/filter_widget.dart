@@ -1,5 +1,10 @@
+import 'package:daniheltest/core/domain/enums/enums.dart';
+import 'package:daniheltest/core/providers/filter_providers.dart';
 import 'package:daniheltest/injection_container.dart';
+import 'package:daniheltest/util/styles/colors.dart';
+import 'package:daniheltest/widgets/shared/app_chips.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class FilterWidget extends StatelessWidget {
   const FilterWidget({super.key});
@@ -19,21 +24,47 @@ class FilterWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Filters', style: $appTextStyles.h2),
-          Text('Category', style: $appTextStyles.h3),
+          Column(
+            spacing: 10,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('Category', style: $appTextStyles.h3),
 
-          //
-          Wrap(
-            spacing: 6,
-            runSpacing: 1,
-            children: category
-                .map(
-                  (e) => FilterChip(
-                    backgroundColor: Color.fromRGBO(255, 255, 255, .4),
-                    onSelected: (value) {},
-                    label: Text(e, style: $appTextStyles.mediumTag),
-                  ),
-                )
-                .toList(),
+              //
+              Wrap(
+                spacing: 6,
+                runSpacing: 6,
+                children: DeveloperCategory.values.map((e) {
+                  final categories = context
+                      .watch<DeveloperCategoryProvider>()
+                      .categories;
+
+                  Color color = categories.contains(e)
+                      ? AppColors.greenCTA
+                      : AppColors.whiteBackground80;
+
+                  Color labelColor = categories.contains(e)
+                      ? AppColors.white
+                      : AppColors.tagColor;
+
+                  return AppChips(
+                    onTap: () {
+                      context.read<DeveloperCategoryProvider>().addCategories(
+                        e,
+                      );
+                    },
+                    label: e.name,
+                    backgroundColor: color,
+                    labelColor: labelColor,
+                    labelStyle: $appTextStyles.mediumTag,
+                    labelPadding: EdgeInsets.symmetric(
+                      horizontal: 10,
+                      vertical: 8,
+                    ),
+                  );
+                }).toList(),
+              ),
+            ],
           ),
 
           //
@@ -43,12 +74,14 @@ class FilterWidget extends StatelessWidget {
             children: [
               Slider(
                 padding: EdgeInsets.zero,
-                value: 25,
-                onChanged: (value) {},
+                value: context.watch<SalaryRangeProvider>().salaryValue,
+                onChanged: (value) {
+                  context.read<SalaryRangeProvider>().changeSalary(value);
+                },
                 divisions: 7,
                 min: 0,
                 max: 100,
-                activeColor: Colors.white,
+                activeColor: AppColors.white,
                 secondaryActiveColor: Color.fromRGBO(255, 255, 255, 0.4),
               ),
               Row(
@@ -64,20 +97,20 @@ class FilterWidget extends StatelessWidget {
           //
           Text('Level', style: $appTextStyles.h3),
           Wrap(
-            children: level
+            children: Level.values
                 .map(
-                  (e) => Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Radio(
-                        value: e,
-                        // activeColor: Colors.white,
-
-                        // fillColor: WidgetStatePropertyAll(Colors.white),
-                        // enabled: true,
-                      ),
-                      Text(e, style: $appTextStyles.paragraph),
-                    ],
+                  (e) => RadioGroup<Level>(
+                    groupValue: context.watch<LevelProvider>().level,
+                    onChanged: (value) {
+                      context.read<LevelProvider>().changeLevel(value);
+                    },
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Radio(value: e),
+                        Text(e.name, style: $appTextStyles.paragraph),
+                      ],
+                    ),
                   ),
                 )
                 .toList(),
@@ -101,7 +134,7 @@ class FilterWidget extends StatelessWidget {
                     backgroundColor: WidgetStateProperty.all(
                       Color.fromRGBO(23, 40, 37, 0.8),
                     ),
-                    foregroundColor: WidgetStateProperty.all(Colors.white),
+                    foregroundColor: WidgetStateProperty.all(AppColors.white),
                     shape: WidgetStateProperty.all(StadiumBorder()),
                   ),
                   child: Text('Save', style: $appTextStyles.button),
@@ -115,5 +148,3 @@ class FilterWidget extends StatelessWidget {
   }
 }
 
-final category = ['iOS', 'Android', 'Frontend', 'backend', 'Network', 'UI/UX'];
-final level = ['Entry', 'Mid', 'Staff', 'Senior', 'Manager'];

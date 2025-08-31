@@ -47,6 +47,7 @@ class AppText {
   late final TextStyle mediumTag = _createFont(
     TextStyle(color: Color(0xFF306157)),
     fontSize: 12,
+    fontWeight: FontWeight.w500,
   );
   late final TextStyle paragraph = _createFont(
     TextStyle(color: Colors.white),
