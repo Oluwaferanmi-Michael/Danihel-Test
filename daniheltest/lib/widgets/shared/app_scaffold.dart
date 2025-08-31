@@ -12,17 +12,18 @@ class AppScaffold extends StatelessWidget {
       alignment: Alignment.center,
       fit: StackFit.expand,
       children: [
-        Container(
+        SizedBox(
           height: MediaQuery.sizeOf(context).height,
           width: MediaQuery.sizeOf(context).width,
-          color: Color.fromRGBO(27, 114, 114, 1),
+          
           child: Image.asset(
             'assets/images/bg_blotches.png',
             fit: BoxFit.cover,
           ),
         ),
         Scaffold(
-          backgroundColor: Colors.transparent,
+          backgroundColor: Color.fromRGBO(27, 114, 114, 1),
+
           appBar: appBar,
           body: child,
         ),
