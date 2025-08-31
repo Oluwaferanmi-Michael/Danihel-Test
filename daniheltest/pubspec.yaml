@@ -12,7 +12,7 @@ dependencies:
   freezed: ^3.2.0
   get_it: ^8.2.0
   google_fonts: ^6.3.1
-  # mockito: ^5.5.0
+  
   provider: ^6.1.5+1
   freezed_annotation: ^3.1.0
 
@@ -22,10 +22,43 @@ dev_dependencies:
   flutter_lints: ^5.0.0
   
   build_runner: ^2.7.0
+  
 
 flutter:
   uses-material-design: true
 
+
+# App Image Assets and Fonts
   assets:
     - assets/images/
 
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/google_fonts/inter/Inter-Black.ttf
+        - asset: assets/google_fonts/inter/Inter-BlackItalic.ttf
+          style: italic  
+        - asset: assets/google_fonts/inter/Inter-Bold.ttf
+        - asset: assets/google_fonts/inter/Inter-BoldItalic.ttf
+          style: italic  
+        - asset: assets/google_fonts/inter/Inter-ExtraBold.ttf
+        - asset: assets/google_fonts/inter/Inter-ExtraBoldItalic.ttf
+          style: italic  
+        - asset: assets/google_fonts/inter/Inter-ExtraLight.ttf
+        - asset: assets/google_fonts/inter/Inter-ExtraLightItalic.ttf
+          style: italic  
+        - asset: assets/google_fonts/inter/Inter-Italic.ttf
+          style: italic  
+        - asset: assets/google_fonts/inter/Inter-Light.ttf
+        - asset: assets/google_fonts/inter/Inter-LightItalic.ttf
+          style: italic  
+        - asset: assets/google_fonts/inter/Inter-Medium.ttf
+        - asset: assets/google_fonts/inter/Inter-MediumItalic.ttf
+          style: italic  
+        - asset: assets/google_fonts/inter/Inter-Regular.ttf
+        - asset: assets/google_fonts/inter/Inter-SemiBold.ttf
+        - asset: assets/google_fonts/inter/Inter-SemiBoldItalic.ttf
+          style: italic  
+        - asset: assets/google_fonts/inter/Inter-Thin.ttf
+        - asset: assets/google_fonts/inter/Inter-ThinItalic.ttf
+          style: italic  

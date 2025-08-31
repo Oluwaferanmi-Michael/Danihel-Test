@@ -1,6 +1,7 @@
 import 'package:daniheltest/core/domain/enums/enums.dart';
 import 'package:daniheltest/core/providers/filter_providers.dart';
 import 'package:daniheltest/injection_container.dart';
+import 'package:daniheltest/util/extensions/ext.dart';
 import 'package:daniheltest/util/styles/colors.dart';
 import 'package:daniheltest/widgets/shared/app_chips.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,8 @@ class FilterWidget extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+
+          // Headers
           Text('Filters', style: $appTextStyles.h2),
           Column(
             spacing: 10,
@@ -30,30 +33,30 @@ class FilterWidget extends StatelessWidget {
             children: [
               Text('Category', style: $appTextStyles.h3),
 
-              //
+              // Using Wrap to prevent UI Overflow and excessive layout widgets
               Wrap(
                 spacing: 6,
                 runSpacing: 6,
-                children: DeveloperCategory.values.map((e) {
+                children: DeveloperCategory.values.map((category) {
                   final categories = context
                       .watch<DeveloperCategoryProvider>()
                       .categories;
 
-                  Color color = categories.contains(e)
+                  Color color = categories.contains(category)
                       ? AppColors.greenCTA
                       : AppColors.whiteBackground80;
 
-                  Color labelColor = categories.contains(e)
+                  Color labelColor = categories.contains(category)
                       ? AppColors.white
                       : AppColors.tagColor;
 
                   return AppChips(
                     onTap: () {
                       context.read<DeveloperCategoryProvider>().addCategories(
-                        e,
+                        category,
                       );
                     },
-                    label: e.name,
+                    label: category.properName,
                     backgroundColor: color,
                     labelColor: labelColor,
                     labelStyle: $appTextStyles.mediumTag,
@@ -67,10 +70,11 @@ class FilterWidget extends StatelessWidget {
             ],
           ),
 
-          //
+          // 100% Salary Please 😅
           Text('Salary Range', style: $appTextStyles.h3),
           Column(
             mainAxisSize: MainAxisSize.min,
+            spacing: 10,
             children: [
               Slider(
                 padding: EdgeInsets.zero,
@@ -99,7 +103,7 @@ class FilterWidget extends StatelessWidget {
           Wrap(
             children: Level.values
                 .map(
-                  (e) => RadioGroup<Level>(
+                  (level) => RadioGroup<Level>(
                     groupValue: context.watch<LevelProvider>().level,
                     onChanged: (value) {
                       context.read<LevelProvider>().changeLevel(value);
@@ -107,8 +111,8 @@ class FilterWidget extends StatelessWidget {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        Radio(value: e),
-                        Text(e.name, style: $appTextStyles.paragraph),
+                        Radio(value: level),
+                        Text(level.properName, style: $appTextStyles.paragraph),
                       ],
                     ),
                   ),
@@ -147,4 +151,3 @@ class FilterWidget extends StatelessWidget {
     );
   }
 }
-

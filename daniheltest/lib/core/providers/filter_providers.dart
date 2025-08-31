@@ -24,11 +24,7 @@ class LevelProvider with ChangeNotifier {
 }
 
 class DeveloperCategoryProvider with ChangeNotifier {
-  List<DeveloperCategory> _categories = [
-    DeveloperCategory.uiux,
-    DeveloperCategory.android,
-    DeveloperCategory.iOS,
-  ];
+  late List<DeveloperCategory> _categories;
 
   List<DeveloperCategory> get categories => _categories;
 
@@ -37,9 +33,15 @@ class DeveloperCategoryProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  DeveloperCategoryProvider() : _categories = [
+    DeveloperCategory.uiux,
+    DeveloperCategory.android,
+    DeveloperCategory.iOS,
+  ];
+
   void addCategories(DeveloperCategory devCategory) {
-    if (categories.contains(devCategory)) {
-      categories.remove(devCategory);
+    if (_categories.contains(devCategory)) {
+      _categories.remove(devCategory);
       notifyListeners();
     } else {
       // List<DeveloperCategory> list = [devCategory, ...categories!];

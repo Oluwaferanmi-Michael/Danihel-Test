@@ -1,5 +1,9 @@
-import 'package:daniheltest/util/styles/colors.dart';
-import 'package:flutter/material.dart';
+import 'package:daniheltest/util/common/barrel.dart';
+
+
+/// The AppSCaffold was an approach to include the image splotches that
+/// decorates the background and separate the decoration from the rest of the app and avoid unnecessary repetition, although the decoration hardly show up cause of the nature
+/// of the image
 
 class AppScaffold extends StatelessWidget {
   const AppScaffold({super.key, required this.child, this.appBar});
@@ -16,9 +20,9 @@ class AppScaffold extends StatelessWidget {
         SizedBox(
           height: MediaQuery.sizeOf(context).height,
           width: MediaQuery.sizeOf(context).width,
-          
+
           child: Image.asset(
-            'assets/images/bg_blotches.png',
+            AppImages.bgBlotches.assetPath,
             fit: BoxFit.cover,
           ),
         ),

@@ -1,19 +1,24 @@
-import 'package:daniheltest/core/providers/filter_providers.dart';
-import 'package:daniheltest/core/providers/product_provider.dart';
-import 'package:daniheltest/core/providers/user_provider.dart';
-import 'package:daniheltest/injection_container.dart';
-import 'package:daniheltest/page/item_screen.dart';
-import 'package:daniheltest/util/styles/theme.dart';
-import 'package:daniheltest/widgets/shared/app_scaffold.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:daniheltest/util/common/barrel.dart';
 
 void main() {
+
+  /// Makes Google FOnts check asset folder for font files
+  GoogleFonts.config.allowRuntimeFetching = false;
+
+  /// App Dependency Setup using get_it see: [injection_conttainer.dart]
   dependencySetup();
-  runApp(
+
+
+  /// Lazy Loading is a default feature of the provider class of statemanagement
+  /// frameworks [riverpod, provider]
+  /// they will only load when the associated build method has been accessed,
+  /// in this case duting the app start since it is just one page
+
+  runApp(    
     MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => UserProvider()),
+        ChangeNotifierProvider(create: (context) => ProductCategoryProvider()),
         ChangeNotifierProvider(create: (context) => ProductProvider()),
         ChangeNotifierProvider(create: (context) => SalaryRangeProvider()),
         ChangeNotifierProvider(create: (context) => LevelProvider()),

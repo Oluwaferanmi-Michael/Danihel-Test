@@ -14,7 +14,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Product {
 
- String get title; double get price; String get description; List<String> get productTags; bool get isFavourite;
+ String get title; double get price; String get description; List<String> get productTags;
 /// Create a copy of Product
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -25,16 +25,16 @@ $ProductCopyWith<Product> get copyWith => _$ProductCopyWithImpl<Product>(this as
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Product&&(identical(other.title, title) || other.title == title)&&(identical(other.price, price) || other.price == price)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.productTags, productTags)&&(identical(other.isFavourite, isFavourite) || other.isFavourite == isFavourite));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is Product&&(identical(other.title, title) || other.title == title)&&(identical(other.price, price) || other.price == price)&&(identical(other.description, description) || other.description == description)&&const DeepCollectionEquality().equals(other.productTags, productTags));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,title,price,description,const DeepCollectionEquality().hash(productTags),isFavourite);
+int get hashCode => Object.hash(runtimeType,title,price,description,const DeepCollectionEquality().hash(productTags));
 
 @override
 String toString() {
-  return 'Product(title: $title, price: $price, description: $description, productTags: $productTags, isFavourite: $isFavourite)';
+  return 'Product(title: $title, price: $price, description: $description, productTags: $productTags)';
 }
 
 
@@ -45,7 +45,7 @@ abstract mixin class $ProductCopyWith<$Res>  {
   factory $ProductCopyWith(Product value, $Res Function(Product) _then) = _$ProductCopyWithImpl;
 @useResult
 $Res call({
- String title, double price, String description, List<String> productTags, bool isFavourite
+ String title, double price, String description, List<String> productTags
 });
 
 
@@ -62,14 +62,13 @@ class _$ProductCopyWithImpl<$Res>
 
 /// Create a copy of Product
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? price = null,Object? description = null,Object? productTags = null,Object? isFavourite = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? title = null,Object? price = null,Object? description = null,Object? productTags = null,}) {
   return _then(Product(
 title: null == title ? _self.title : title // ignore: cast_nullable_to_non_nullable
 as String,price: null == price ? _self.price : price // ignore: cast_nullable_to_non_nullable
 as double,description: null == description ? _self.description : description // ignore: cast_nullable_to_non_nullable
 as String,productTags: null == productTags ? _self.productTags : productTags // ignore: cast_nullable_to_non_nullable
-as List<String>,isFavourite: null == isFavourite ? _self.isFavourite : isFavourite // ignore: cast_nullable_to_non_nullable
-as bool,
+as List<String>,
   ));
 }
 

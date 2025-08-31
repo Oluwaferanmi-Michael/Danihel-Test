@@ -1,23 +1,24 @@
-import 'package:daniheltest/core/providers/product_provider.dart';
-import 'package:daniheltest/core/providers/user_provider.dart';
+import 'package:daniheltest/util/common/barrel.dart';
 
-import 'package:daniheltest/injection_container.dart';
-import 'package:daniheltest/util/styles/colors.dart';
-import 'package:daniheltest/widgets/shared/app_chips.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+@immutable
+class AppStrings {
+  const AppStrings._();
+}
 
 class ItemDescription extends StatelessWidget {
   const ItemDescription({super.key});
 
   @override
   Widget build(BuildContext context) {
+
+    // Listen to Provider States
     final productDetail = context.watch<ProductProvider>().product;
     final userFavourites = context.watch<UserProvider>().favourites;
+
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 15),
       decoration: BoxDecoration(
-        color: Color.fromRGBO(255, 255, 255, 0.4),
+        color: AppColors.whiteBackground40,
         borderRadius: BorderRadius.circular(20),
       ),
       clipBehavior: Clip.antiAlias,
@@ -27,7 +28,7 @@ class ItemDescription extends StatelessWidget {
             bottom: 0,
             right: -18,
             child: SizedBox(
-              child: Image.asset('assets/images/bag_item.png', scale: 1.5),
+              child: Image.asset(AppImages.bag.assetPath, scale: 1.5),
             ),
           ),
           Padding(
@@ -53,18 +54,23 @@ class ItemDescription extends StatelessWidget {
                         ),
                       ],
                     ),
+
                     IconButton(
                       onPressed: () {
+                        /// Check if Product item is included in user favourites
+                        /// add if not, remove if so, makes the iconButton responsive
                         context.read<UserProvider>().updateFavourite(
                           productDetail,
                         );
                       },
+
+                      /// change icon if favourite conditions are met or not
                       icon: userFavourites.contains(productDetail)
                           ? Icon(Icons.favorite)
                           : Icon(Icons.favorite_border_outlined),
                       style: ButtonStyle(
                         backgroundColor: WidgetStateProperty.all(
-                          Color.fromRGBO(255, 255, 255, .4),
+                          AppColors.whiteBackground40,
                         ),
                         foregroundColor: WidgetStateProperty.all(
                           AppColors.white,
@@ -78,21 +84,24 @@ class ItemDescription extends StatelessWidget {
                     ),
                   ],
                 ),
+
+
                 SizedBox(
-                  width: MediaQuery.sizeOf(context).width * .6,
+                  width: MediaQuery.sizeOf(context).width * .5,
                   child: Text(
                     productDetail.description,
                     style: $appTextStyles.paragraph,
                   ),
                 ),
 
-                //
+                /// Used Wrap Layout Widget to "Future proof UI", if more tags
+                /// are addded, they will wrap to the next line
                 Wrap(
                   spacing: 6,
                   children: productDetail.productTags
                       .map(
-                        (e) => AppChips(
-                          label: e,
+                        (tags) => AppChips(
+                          label: tags,
                           backgroundColor: AppColors.whiteBackground80,
                           labelColor: AppColors.tagColor,
                           labelStyle: $appTextStyles.smallTag,
